@@ -7,19 +7,19 @@ const btnHold = document.querySelector(".btn--hold");
 const imgDice = document.querySelector("img");
 
 const P1 = {
-  section: document.querySelector(".player--1"),
+  section: document.querySelector(".player--1"), //CSSte aktif arka plani degistirmede kullanilacak
   showCurrentScore: document.getElementById("current--1"),
   showTotalScore: document.getElementById("score--1"),
   currentScore: 0,
-  totalScore: 0,
+  totalScore: 0
 };
 
 const P2 = {
-  section: document.querySelector(".player--2"),
+  section: document.querySelector(".player--2"), //CSSte aktif arka plani degistirmede kullanilacak
   showCurrentScore: document.getElementById("current--2"),
   showTotalScore: document.getElementById("score--2"),
   currentScore: 0,
-  totalScore: 0,
+  totalScore: 0
 };
 
 P1.showTotalScore.innerHTML = 0;
@@ -38,7 +38,6 @@ function rollFunc() {
   //random sayinin currenta eklenmesi
   if (randomNumber === 1) {
     currentPlayer.currentScore = 0;
-    currentPlayer.showCurrentScore.innerHTML = 0;
     changePlayer();
   } else {
     currentPlayer.currentScore += randomNumber;
@@ -47,5 +46,30 @@ function rollFunc() {
 }
 
 function changePlayer() {
+  currentPlayer.currentScore = 0;
+  currentPlayer.showCurrentScore.innerHTML = currentPlayer.currentScore;
+  P1.section.classList.toggle("player--active")
+  P2.section.classList.toggle("player--active")
   currentPlayer = currentPlayer == P1 ? P2 : P1;
+}
+
+
+
+//Hold Button
+
+btnHold.addEventListener("click", holdFunc);
+
+function holdFunc(){
+  currentPlayer.totalScore += currentPlayer.currentScore
+  currentPlayer.showTotalScore.innerHTML = currentPlayer.totalScore;
+  changePlayer();
+}
+
+
+//Newgame Button
+
+btnNew.addEventListener("click", newGameFunc);
+
+function newGameFunc(){
+  location.reload();
 }
